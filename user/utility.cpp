@@ -229,6 +229,7 @@ ImVec4 AmongUsColorToImVec4(const Color32& color) {
 }
 
 #define LocalInGame (((*Game::pAmongUsClient)->fields._.NetworkMode == NetworkModes__Enum::LocalGame) && ((*Game::pAmongUsClient)->fields._.GameState == InnerNetClient_GameStates__Enum::Started))
+#define LocalInLobby (((*Game::pAmongUsClient)->fields._.NetworkMode == NetworkModes__Enum::LocalGame) && ((*Game::pAmongUsClient)->fields._.GameState == InnerNetClient_GameStates__Enum::Joined))
 #define OnlineInGame (((*Game::pAmongUsClient)->fields._.NetworkMode == NetworkModes__Enum::OnlineGame) && ((*Game::pAmongUsClient)->fields._.GameState == InnerNetClient_GameStates__Enum::Started))
 #define OnlineInLobby (((*Game::pAmongUsClient)->fields._.NetworkMode == NetworkModes__Enum::OnlineGame) && ((*Game::pAmongUsClient)->fields._.GameState == InnerNetClient_GameStates__Enum::Joined))
 #define TutorialScene (State.CurrentScene.compare("Tutorial") == 0)
@@ -236,7 +237,7 @@ ImVec4 AmongUsColorToImVec4(const Color32& color) {
 bool IsInLobby() {
 	if (Object_1_IsNull((Object_1*)*Game::pAmongUsClient)) return false;
 	if (!app::GameManager_get_Instance(nullptr)) return false;
-	return OnlineInLobby && Object_1_IsNotNull((Object_1*)*Game::pLocalPlayer);
+	return (LocalInLobby || OnlineInLobby) && Object_1_IsNotNull((Object_1*)*Game::pLocalPlayer);
 }
 
 bool IsHost() {
