@@ -29,7 +29,7 @@ namespace PlayersTab {
 					std::string playerName = convert_from_string(GameData_PlayerOutfit_get_PlayerName(outfit, nullptr));
 					ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0) * State.dpiScale);
 					ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0) * State.dpiScale);
-					if (ImGui::Selectable(std::string("##" + playerName).c_str(), selectedPlayer.equals(player))) {
+					if (ImGui::Selectable(std::string("##" + ToString(playerData->fields.PlayerId)).c_str(), selectedPlayer.equals(player))) { //fix selection problems with multiple ppl having same name
 						State.selectedPlayer = player;
 						selectedPlayer = player;
 					}
